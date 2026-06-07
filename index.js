@@ -44,29 +44,26 @@ let formatted = `${day} ${hours}:${minutes}`;
 
 console.log(formatted);
 
-let paragraph = document.querySelector(".current-weather p");
-
-paragraph.innerHTML = `
-<span id="date-time">${formatted}</span>,
-<span id="condition">moderate rain</span><br />
-Humidity: <strong id="humidity">87%</strong>,
-Wind: <strong id="wind">7.2 km/h</strong>
-`;
+let dateTimeElement = document.querySelector("#date-time");
+dateTimeElement.innerHTML = formatted;
 
 function displayTemperature(response) {
-  console.log(response.data);
+  console.log(response.data.condition);
+
   let heading = document.querySelector("#main-heading");
   let temperatureElement = document.querySelector("#temperature");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let conditionElement = document.querySelector("#condition");
+  let iconElement = document.querySelector("#icon");
 
   heading.innerHTML = response.data.city;
   temperatureElement.innerHTML = Math.round(response.data.temperature.current);
-
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
-
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
-
   conditionElement.innerHTML = response.data.condition.description;
+
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 }
+
+searchCity("Paris");
