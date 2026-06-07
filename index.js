@@ -47,14 +47,20 @@ console.log(formatted);
 let paragraph = document.querySelector(".current-weather p");
 
 paragraph.innerHTML = `${formatted}, moderate rain <br />
-Humidity: <strong>87%</strong>, Wind: <strong>7.2 km/h</strong>`;
+Humidity: <strong id="humidity">87%</strong>, Wind: <strong id="wind">7.2 km/h</strong>`;
 
 function displayTemperature(response) {
   let heading = document.querySelector("#main-heading");
-  let temperatureElement = document.querySelector(".temperature");
+  let temperatureElement = document.querySelector("#temperature");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
 
   let temperature = Math.round(response.data.temperature.current);
+  let humidity = response.data.temperature.humidity;
+  let wind = Math.round(response.data.wind.speed);
 
   heading.innerHTML = response.data.city;
   temperatureElement.innerHTML = temperature;
+  humidityElement.innerHTML = `${humidity}%`;
+  windElement.innerHTML = `${wind} km/h`;
 }
