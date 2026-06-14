@@ -69,7 +69,7 @@ function getMeteoconIcon(conditionIcon) {
     "mist-night": "fog-night",
   };
 
-  return `https://cdn.jsdelivr.net/npm/@meteocons/svg@0.1.0/fill/${
+  return `https://cdn.jsdelivr.net/npm/@meteocons/svg-static@0.1.0/fill/${
     icons[conditionIcon] || "clear-day"
   }.svg`;
 }
@@ -125,7 +125,7 @@ function displayForecast(response) {
         `
   <div class="weather-forecast-day">
     <div class="weather-forecast-date">${formatDay(day.time)}</div>
-    <img src="${getMeteoconIcon(day.condition.icon)}" class="weather-forecast-icon" />
+   <img src="${getMeteoconIcon(day.condition.icon)}" class="weather-forecast-icon" />
     <div class="weather-forecast-temperatures">
       <div class="weather-forecast-temperature">
         <strong>${Math.round(day.temperature.maximum)}°</strong>
