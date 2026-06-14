@@ -47,7 +47,35 @@ console.log(formatted);
 let dateTimeElement = document.querySelector("#date-time");
 dateTimeElement.innerHTML = formatted;
 
+function getMeteoconIcon(conditionIcon) {
+  let icons = {
+    "clear-sky-day": "clear-day",
+    "clear-sky-night": "clear-night",
+    "few-clouds-day": "partly-cloudy-day",
+    "few-clouds-night": "partly-cloudy-night",
+    "scattered-clouds-day": "cloudy",
+    "scattered-clouds-night": "cloudy",
+    "broken-clouds-day": "overcast-day",
+    "broken-clouds-night": "overcast-night",
+    "shower-rain-day": "rain",
+    "shower-rain-night": "rain",
+    "rain-day": "partly-cloudy-day-rain",
+    "rain-night": "partly-cloudy-night-rain",
+    "thunderstorm-day": "thunderstorms-day",
+    "thunderstorm-night": "thunderstorms-night",
+    "snow-day": "snow",
+    "snow-night": "snow",
+    "mist-day": "fog-day",
+    "mist-night": "fog-night",
+  };
+
+  return `https://cdn.jsdelivr.net/npm/@meteocons/svg@0.1.0/fill/${
+    icons[conditionIcon] || "clear-day"
+  }.svg`;
+}
+
 function displayTemperature(response) {
+  console.log(response.data.condition);
   console.log(response.data.condition);
 
   let heading = document.querySelector("#main-heading");
@@ -63,7 +91,9 @@ function displayTemperature(response) {
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   conditionElement.innerHTML = response.data.condition.description;
 
-  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
+  iconElement.innerHTML = `<img src="${getMeteoconIcon(
+    response.data.condition.icon,
+  )}" class="weather-app-icon" />`;
 
   getForecast(response.data.city);
 }
@@ -95,7 +125,7 @@ function displayForecast(response) {
         `
   <div class="weather-forecast-day">
     <div class="weather-forecast-date">${formatDay(day.time)}</div>
-    <img src="${day.condition.icon_url}" class="weather-forecast-icon" />
+    <img src="${getMeteoconIcon(day.condition.icon)}" class="weather-forecast-icon" />
     <div class="weather-forecast-temperatures">
       <div class="weather-forecast-temperature">
         <strong>${Math.round(day.temperature.maximum)}°</strong>
@@ -109,4 +139,4 @@ function displayForecast(response) {
   forecast.innerHTML = forecastHTML;
 }
 
-searchCity("Paris");
+searchCity("Xilxes");
