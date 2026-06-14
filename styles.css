@@ -34,7 +34,7 @@ form {
 }
 
 .button {
-  background: #885df1;
+  background: #0077b6;
   border: none;
   border-radius: 8px;
   color: #ffffff;
@@ -65,7 +65,7 @@ p {
 }
 
 p strong {
-  color: #f65282;
+  color: #00b4d8;
 }
 
 .degrees {
@@ -114,7 +114,7 @@ p strong {
 
 .weather-forecast-temperatures {
   text-align: center;
-  color: #f65282;
+  color: #00b4d8;
   margin-top: 10px;
   display: flex;
   justify-content: center;
@@ -134,7 +134,7 @@ footer {
 }
 
 footer a {
-  color: #885df1;
+  color: #0077b6;
 }
 
 .visually-hidden {
