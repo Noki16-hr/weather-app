@@ -47,7 +47,7 @@ console.log(formatted);
 let dateTimeElement = document.querySelector("#date-time");
 dateTimeElement.innerHTML = formatted;
 
-function getMeteoconIcon(conditionIcon) {
+function getMeteoconName(conditionIcon) {
   let icons = {
     "clear-sky-day": "clear-day",
     "clear-sky-night": "clear-night",
@@ -69,9 +69,19 @@ function getMeteoconIcon(conditionIcon) {
     "mist-night": "fog-night",
   };
 
-  return `https://cdn.jsdelivr.net/npm/@meteocons/svg-static@0.1.0/fill/${
-    icons[conditionIcon] || "clear-day"
-  }.svg`;
+  return icons[conditionIcon] || "clear-day";
+}
+
+function getStaticMeteoconIcon(conditionIcon) {
+  return `https://cdn.jsdelivr.net/npm/@meteocons/svg-static@0.1.0/fill/${getMeteoconName(
+    conditionIcon,
+  )}.svg`;
+}
+
+function getAnimatedMeteoconIcon(conditionIcon) {
+  return `https://cdn.jsdelivr.net/npm/@meteocons/svg@0.1.0/fill/${getMeteoconName(
+    conditionIcon,
+  )}.svg`;
 }
 
 function displayTemperature(response) {
@@ -91,7 +101,7 @@ function displayTemperature(response) {
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   conditionElement.innerHTML = response.data.condition.description;
 
-  iconElement.innerHTML = `<img src="${getMeteoconIcon(
+  iconElement.innerHTML = `<img src="${getAnimatedMeteoconIcon(
     response.data.condition.icon,
   )}" class="weather-app-icon" />`;
 
@@ -125,7 +135,7 @@ function displayForecast(response) {
         `
   <div class="weather-forecast-day">
     <div class="weather-forecast-date">${formatDay(day.time)}</div>
-   <img src="${getMeteoconIcon(day.condition.icon)}" class="weather-forecast-icon" />
+   <img src="${getStaticMeteoconIcon(day.condition.icon)}" class="weather-forecast-icon" />
     <div class="weather-forecast-temperatures">
       <div class="weather-forecast-temperature">
         <strong>${Math.round(day.temperature.maximum)}°</strong>
